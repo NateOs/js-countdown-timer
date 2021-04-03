@@ -26,7 +26,7 @@ const giveaway = document.querySelector('.giveaway')
 const deadline = document.querySelector('.deadline')
 const timeItems = document.querySelectorAll('.deadline h4')
 
-let futureDate = new Date(2021, 4, 24, 11, 30, 0)
+let futureDate = new Date(2021, 4, 03 , 11, 30, 0)
 
 //* setting statics
 const year = futureDate.getFullYear()
@@ -41,7 +41,7 @@ day = weekdays[day]
 
 let date = futureDate.getDate()
 
-giveaway.textContent = `giveaway ends on ${day}, ${date}th ${month} ${year},  at ${hours}: ${minutes} GMT`
+giveaway.textContent = `giveaway ends on ${day}, ${date} ${month} ${year},  at ${hours}: ${minutes} GMT`
 
 //* future time in ms
 const futureTime = futureDate.getTime()
@@ -68,10 +68,24 @@ const getRemainingTime = () => {
   let minutes = Math.floor((t % oneHour) / oneMinute)
   let seconds = Math.floor((t % oneMinute) / 1000)
 
+  //* set values array
+
+  const values = [days, hours, minutes, seconds]
+
+  const format = (item) => {
+    if (item < 10) {
+      return (item = `0${item}`)
+    }
+    return item
+  } 
   
+  timeItems.forEach((item, index) => {
+    item.innerHTML = format(values[index])
+  })
 
 }
 
 //* call getRemainingTime func every sec
 let countdown = setInterval(getRemainingTime, 1000)
+
 getRemainingTime()
