@@ -72,4 +72,6 @@ const getRemainingTime = () => {
 
 }
 
+//* call getRemainingTime func every sec
+let countdown = setInterval(getRemainingTime, 1000)
 getRemainingTime()
