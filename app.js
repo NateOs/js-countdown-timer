@@ -26,7 +26,7 @@ const giveaway = document.querySelector('.giveaway')
 const deadline = document.querySelector('.deadline')
 const timeItems = document.querySelectorAll('.deadline h4')
 
-let futureDate = new Date(2021, 4, 03 , 11, 30, 0)
+let futureDate = new Date(2021, 3, 04 , 11, 30, 0)
 
 //* setting statics
 const year = futureDate.getFullYear()
@@ -48,8 +48,8 @@ const futureTime = futureDate.getTime()
 
 const getRemainingTime = () => {
   const today = new Date().getTime()
-  const t = futureTime - today
-  console.log(t);
+  const timeInterval = futureTime - today
+  console.log(timeInterval);
 
   //* 1s = 1000ms
   //* 1m = 60s
@@ -62,11 +62,11 @@ const getRemainingTime = () => {
   const oneMinute = 60 * 1000
 
   //* calc all values
-  let days = t / oneDay
+  let days = timeInterval / oneDay
     days = Math.floor(days)
-  let hours = Math.floor((t % oneDay) / oneHour)
-  let minutes = Math.floor((t % oneHour) / oneMinute)
-  let seconds = Math.floor((t % oneMinute) / 1000)
+  let hours = Math.floor((timeInterval % oneDay) / oneHour)
+  let minutes = Math.floor((timeInterval % oneHour) / oneMinute)
+  let seconds = Math.floor((timeInterval % oneMinute) / 1000)
 
   //* set values array
 
@@ -83,6 +83,10 @@ const getRemainingTime = () => {
     item.innerHTML = format(values[index])
   })
 
+  if (timeInterval < 0) {
+    clearInterval(countdown)
+    deadline.innerHTML = `<h4 class= 'expired'>sorry, this giveaway has expired</h4>`
+  }
 }
 
 //* call getRemainingTime func every sec
